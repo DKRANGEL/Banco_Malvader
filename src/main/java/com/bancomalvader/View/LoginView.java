@@ -1,92 +1,240 @@
 package com.bancomalvader.View;
 
+import com.bancomalvader.DAO.ClienteDAO;
+import com.bancomalvader.DAO.FuncionarioDAO;
+import com.bancomalvader.Model.Cliente;
+import com.bancomalvader.Model.Funcionario;
+import com.bancomalvader.Model.Usuario;
+import com.bancomalvader.Util.AdminValidation;
+import com.bancomalvader.Util.RoundedButton;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 
-public class LoginView extends JFrame {
-  private JTextField userField;
-  private JPasswordField passwordField;
-  private JButton loginButton;
-  private JButton exitButton;
+public final class LoginView extends JFrame {
 
-  public LoginView() {
-    // Configurações da janela principal
-    setTitle("Banco Malvader - Login");
-    setSize(400, 200);
+  private CustomTextField usernameField;
+  private CustomPasswordField passwordField;
+  private final String ADMIN_PASSWORD = "admin";
+
+  public LoginView(String userType) {
+    // Configuração da janela principal
+    setTitle("Login de " + userType);
+    setSize(800, 481);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLocationRelativeTo(null);
-
-    // Configuração do layout
+    setLocationRelativeTo(null); // Centraliza a janela
     setLayout(new BorderLayout());
+    getContentPane().setBackground(new Color(30, 30, 30));
 
-    // Painel superior para as instruções
-    JPanel topPanel = new JPanel();
-    topPanel.add(new JLabel("Selecione o tipo de acesso e insira sua senha"));
+    // Cabeçalho
+    JPanel headerPanel = new JPanel();
+    headerPanel.setPreferredSize(new Dimension(getWidth(), 60));
+    headerPanel.setBackground(Color.BLACK);
 
-    // Painel central para os campos de entrada
-    JPanel centerPanel = new JPanel(new GridLayout(3, 2));
-    centerPanel.add(new JLabel("Usuário:"));
-    userField = new JTextField();
-    centerPanel.add(userField);
+    JLabel headerLabel = new JLabel("MVDR", SwingConstants.CENTER);
+    headerLabel.setFont(new Font("Arial", Font.BOLD, 40));
+    headerLabel.setForeground(new Color(255, 69, 0));
+    headerPanel.setLayout(new BorderLayout());
+    headerPanel.add(headerLabel, BorderLayout.CENTER);
 
-    centerPanel.add(new JLabel("Senha:"));
-    passwordField = new JPasswordField();
-    centerPanel.add(passwordField);
+    add(headerPanel, BorderLayout.NORTH);
 
-    // Painel inferior para os botões
-    JPanel bottomPanel = new JPanel();
-    loginButton = new JButton("Login");
-    exitButton = new JButton("Sair");
+    // Painel central
+    JPanel centerPanel = new JPanel(new GridBagLayout());
+    centerPanel.setBackground(new Color(30, 30, 30));
 
-    bottomPanel.add(loginButton);
-    bottomPanel.add(exitButton);
+    JPanel formPanel = new JPanel(new GridBagLayout());
+    formPanel.setBackground(new Color(45, 45, 45));
+    formPanel.setPreferredSize(new Dimension(670, 386));
+    formPanel.setBorder(BorderFactory.createLineBorder(new Color(80, 80, 80), 1));
+    formPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-    // Adiciona os painéis à janela
-    add(topPanel, BorderLayout.NORTH);
-    add(centerPanel, BorderLayout.CENTER);
-    add(bottomPanel, BorderLayout.SOUTH);
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(10, 10, 10, 10);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
 
-    // Ações dos botões
-    loginButton.addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            String user = userField.getText();
-            String password = new String(passwordField.getPassword());
+    StringBuilder pontos = new StringBuilder();
+    for (int i = 0; i < 100; i++) {
+      pontos.append(".");
+    }
 
-            // Aqui é onde você implementa a lógica de autenticação
-            if (autenticar(user, password)) {
-              JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
-              // Abrir o próximo menu de acordo com o tipo de usuário
-              abrirMenuPrincipal();
-            } else {
-              JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos.");
+    JLabel spaceLabel = new JLabel(pontos.toString(), SwingConstants.RIGHT);
+    spaceLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+    spaceLabel.setForeground(new Color(45, 45, 45));
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.gridwidth = 2;
+    formPanel.add(spaceLabel, gbc);
+
+    // Título
+    JLabel titleLabel = new JLabel("Login de " + userType, SwingConstants.CENTER);
+    titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+    titleLabel.setForeground(Color.WHITE);
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.gridwidth = 2;
+    gbc.anchor = GridBagConstraints.CENTER;
+    formPanel.add(titleLabel, gbc);
+
+    // Campo de usuário
+    JLabel usernameLabel = new JLabel("Usuário:");
+    usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+    usernameLabel.setForeground(new Color(224, 224, 224));
+    gbc.gridx = 0;
+    gbc.gridy = 1;
+    gbc.gridwidth = 2;
+    gbc.anchor = GridBagConstraints.WEST;
+    formPanel.add(usernameLabel, gbc);
+
+    usernameField = new CustomTextField();
+    usernameField.setPreferredSize(new Dimension(542, 36));
+    gbc.gridx = 0;
+    gbc.gridy = 2;
+    gbc.gridwidth = 2;
+    gbc.anchor = GridBagConstraints.CENTER;
+    formPanel.add(usernameField, gbc);
+
+    // Campo de senha
+    JLabel passwordLabel = new JLabel("Senha:");
+    passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
+    passwordLabel.setForeground(new Color(224, 224, 224));
+    gbc.gridx = 0;
+    gbc.gridy = 3;
+    gbc.gridwidth = 2;
+    gbc.anchor = GridBagConstraints.WEST;
+    formPanel.add(passwordLabel, gbc);
+
+    passwordField = new CustomPasswordField();
+    passwordField.setPreferredSize(new Dimension(542, 36));
+    gbc.gridx = 0;
+    gbc.gridy = 4;
+    gbc.gridwidth = 2;
+    gbc.anchor = GridBagConstraints.CENTER;
+    formPanel.add(passwordField, gbc);
+
+    // Adiciona o botão "Cadastre-se" apenas para Funcionário
+    if (userType.equalsIgnoreCase("Funcionário")) {
+      JLabel registerLabel = new JLabel("<html><u>Cadastre-se</u></html>", SwingConstants.LEFT);
+      registerLabel.setFont(new Font("Arial", Font.BOLD, 14));
+      registerLabel.setForeground(new Color(240, 66, 11));
+      registerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+      registerLabel.addMouseListener(
+          new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+              if (AdminValidation.validarSenhaAdministrador()) {
+                new RegisterView().setVisible(true);
+                dispose();
+              }
             }
+          });
+
+      gbc.gridx = 0;
+      gbc.gridy = 5;
+      gbc.gridwidth = 2;
+      formPanel.add(registerLabel, gbc);
+    }
+
+    centerPanel.add(formPanel);
+    add(centerPanel, BorderLayout.CENTER);
+
+    // Painel de botões
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+    buttonPanel.setBackground(new Color(30, 30, 30));
+
+    JButton loginButton = new RoundedButton("Entrar", new Color(255, 69, 0), Color.WHITE);
+    JButton cancelButton =
+        new RoundedButton("Voltar", new Color(109, 6, 6, 25), new Color(161, 61, 61));
+
+    loginButton.setPreferredSize(new Dimension(113, 45));
+    loginButton.setForeground(Color.WHITE);
+    cancelButton.setPreferredSize(new Dimension(96, 45));
+    cancelButton.setForeground(new Color(161, 61, 61));
+
+    // Validação de Login
+    loginButton.addActionListener(
+        e -> {
+          String username = usernameField.getText().trim();
+          String password = new String(passwordField.getPassword());
+
+          if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+          }
+
+          try {
+            if (userType.equalsIgnoreCase("Funcionário")) {
+              FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+              Funcionario funcionario = funcionarioDAO.validarLogin(username, password);
+              if (funcionario != null) {
+                // Redireciona para a tela principal de funcionários
+                MenuFuncionarioView menuFuncionarioView = new MenuFuncionarioView(funcionario);
+                menuFuncionarioView.setVisible(true);
+                dispose(); // Fecha a tela de login
+              } else {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Usuário ou senha inválidos para Funcionário.",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+              }
+            } else if (userType.equalsIgnoreCase("Cliente")) {
+              ClienteDAO clienteDAO = new ClienteDAO();
+              Usuario usuario =
+                  clienteDAO.validarLogin(username, password); // Agora retorna um Usuario
+              if (usuario != null) {
+                // Redireciona para a tela principal de clientes
+                MenuClienteView menuClienteView = new MenuClienteView(usuario); // Passa o Usuario
+                menuClienteView.setVisible(true);
+                dispose(); // Fecha a tela de login
+              } else {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Usuário ou senha inválidos para Cliente.",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+              }
+            }
+          } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Erro ao validar login: " + ex.getMessage(),
+                "Erro",
+                JOptionPane.ERROR_MESSAGE);
           }
         });
 
-    exitButton.addActionListener(e -> System.exit(0));
-  }
-
-  // Método de autenticação (exemplo)
-  private boolean autenticar(String user, String password) {
-    // Implemente a lógica de autenticação aqui
-    return true; // Exemplo simples, você deve substituir por lógica real
-  }
-
-  // Método para abrir o menu principal após login
-  private void abrirMenuPrincipal() {
-    // Implemente a navegação para o menu principal aqui
-    dispose(); // Fecha a tela de login
-  }
-
-  public static void main(String[] args) {
-    SwingUtilities.invokeLater(
-        () -> {
-          LoginView login = new LoginView();
-          login.setVisible(true);
+    cancelButton.addActionListener(
+        e -> {
+          MainMenuView mainView = new MainMenuView();
+          mainView.setVisible(true);
+          dispose(); // Fecha a LoginView atual
         });
+
+    buttonPanel.add(loginButton);
+    buttonPanel.add(cancelButton);
+    add(buttonPanel, BorderLayout.SOUTH);
+  }
+
+  // CustomTextField
+  class CustomTextField extends JTextField {
+    public CustomTextField() {
+      setBackground(new Color(60, 60, 60));
+      setForeground(Color.WHITE);
+      setCaretColor(Color.WHITE);
+      setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    }
+  }
+
+  // CustomPasswordField
+  class CustomPasswordField extends JPasswordField {
+    public CustomPasswordField() {
+      setBackground(new Color(60, 60, 60));
+      setForeground(Color.WHITE);
+      setCaretColor(Color.WHITE);
+      setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    }
   }
 }
