@@ -1,0 +1,7 @@
+com.bancomalvader
+com.bancomalvader.Controller
+com.bancomalvader.DAO
+com.bancomalvader.DatabaseConnection
+com.bancomalvader.Model
+com.bancomalvader.Util
+com.bancomalvader.View

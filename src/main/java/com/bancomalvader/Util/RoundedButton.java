@@ -1,3 +1,14 @@
+/**
+ * Classe utilitária que define um botão com bordas arredondadas para a interface gráfica do sistema
+ * Banco Malvader.
+ *
+ * <p>Este componente personalizado melhora a estética e a usabilidade do sistema, permitindo
+ * estilização adicional e comportamento consistente.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.Util;
 
 import java.awt.*;

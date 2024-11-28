@@ -1,3 +1,9 @@
+-- Script SQL responsável pela criação e inicialização do banco de dados do sistema Banco Malvader.
+-- Contém instruções para criação de tabelas, relacionamentos, índices e inserção de dados iniciais.
+--
+-- Autor: Dérick Rangel
+-- Versão: 1.0
+-- Desde: 2024-11-27
 DROP DATABASE IF EXISTS banco_malvader;
 
 CREATE DATABASE banco_malvader;

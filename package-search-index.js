@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.bancomalvader"},{"l":"com.bancomalvader.Controller"},{"l":"com.bancomalvader.DAO"},{"l":"com.bancomalvader.DatabaseConnection"},{"l":"com.bancomalvader.Model"},{"l":"com.bancomalvader.Util"},{"l":"com.bancomalvader.View"}];updateSearchResults();

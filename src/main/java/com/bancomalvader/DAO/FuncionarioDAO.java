@@ -1,3 +1,14 @@
+/**
+ * Classe de acesso a dados (DAO) responsável pelas operações de persistência relacionadas aos
+ * funcionários no sistema Banco Malvader.
+ *
+ * <p>Fornece métodos para inserir, atualizar, excluir e consultar informações de funcionários no
+ * banco de dados.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.DAO;
 
 import com.bancomalvader.DatabaseConnection.DatabaseConnection;

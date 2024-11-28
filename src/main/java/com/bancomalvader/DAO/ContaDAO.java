@@ -1,3 +1,15 @@
+/**
+ * Classe de acesso a dados (DAO) responsável pelas operações de persistência relacionadas às contas
+ * bancárias no sistema Banco Malvader.
+ *
+ * <p>Fornece métodos genéricos para manipular dados de contas, como inserção, atualização, exclusão
+ * e consultas no banco de dados. Esta classe serve como base para tipos específicos de contas, como
+ * correntes e poupanças.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.DAO;
 
 import com.bancomalvader.DatabaseConnection.DatabaseConnection;

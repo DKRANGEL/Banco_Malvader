@@ -1,3 +1,14 @@
+/**
+ * Classe responsável pela interface gráfica do menu de operações para funcionários no sistema Banco
+ * Malvader.
+ *
+ * <p>Permite acesso a funcionalidades administrativas e de gerenciamento, como cadastro de
+ * clientes, manipulação de contas e consulta de dados de usuários.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.View;
 
 import com.bancomalvader.Controller.ContaController;

@@ -1,3 +1,13 @@
+/**
+ * Classe de modelo que representa um funcionário no sistema Banco Malvader.
+ *
+ * <p>Contém informações pessoais e funcionais, como nome, CPF, cargo e permissões, necessárias para
+ * a gestão de funcionários no sistema.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.Model;
 
 import lombok.Data;

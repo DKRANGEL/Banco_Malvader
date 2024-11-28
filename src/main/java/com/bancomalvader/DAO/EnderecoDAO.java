@@ -1,3 +1,14 @@
+/**
+ * Classe de acesso a dados (DAO) responsável pelas operações de persistência relacionadas aos
+ * endereços no sistema Banco Malvader.
+ *
+ * <p>Fornece métodos para inserir, atualizar, excluir e consultar informações de endereços no banco
+ * de dados.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.DAO;
 
 import com.bancomalvader.DatabaseConnection.DatabaseConnection;

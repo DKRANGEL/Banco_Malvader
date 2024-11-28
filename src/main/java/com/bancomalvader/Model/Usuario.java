@@ -1,3 +1,13 @@
+/**
+ * Classe de modelo que representa um usuário no sistema Banco Malvader.
+ *
+ * <p>Contém informações como nome, CPF, senha, tipo de usuário e outros dados relevantes para a
+ * autenticação e identificação no sistema.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.Model;
 
 import lombok.AllArgsConstructor;

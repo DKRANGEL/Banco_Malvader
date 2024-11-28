@@ -1,3 +1,14 @@
+/**
+ * Classe responsável pela interface gráfica do menu de operações para clientes no sistema Banco
+ * Malvader.
+ *
+ * <p>Permite acesso a funcionalidades específicas voltadas para clientes, como consulta de contas,
+ * realização de operações bancárias e atualização de dados pessoais.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.View;
 
 import com.bancomalvader.Model.Usuario;

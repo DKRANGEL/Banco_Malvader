@@ -1,7 +1,20 @@
+/**
+ * Classe responsável pela interface gráfica para consulta de informações de clientes no sistema
+ * Banco Malvader.
+ *
+ * <p>Permite a visualização e busca de dados dos clientes, exibindo detalhes relevantes de forma
+ * organizada.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.View;
 
 import com.bancomalvader.Controller.ClienteController;
 import com.bancomalvader.Model.Cliente;
+import com.bancomalvader.Model.Endereco;
+import com.bancomalvader.Model.Usuario;
 import com.bancomalvader.Util.RoundedButton;
 import java.awt.*;
 import javax.swing.*;
@@ -40,23 +53,27 @@ public class ConsultaClienteView extends JFrame {
     Cliente clienteDetalhes = clienteController.buscarClientePorCPF(cpfCliente);
 
     if (clienteDetalhes != null) {
-      // Substituí as chamadas diretas pelos acessos ao objeto `Usuario` dentro de `Cliente`
-      addDetail(detailsPanel, "Nome do Cliente:", clienteDetalhes.getUsuario().getNome());
-      addDetail(detailsPanel, "CPF do Cliente:", clienteDetalhes.getUsuario().getCpf());
-      addDetail(
-          detailsPanel,
-          "Data de Nascimento:",
-          clienteDetalhes.getUsuario().getDataNascimento().toString());
-      addDetail(detailsPanel, "Telefone:", clienteDetalhes.getUsuario().getTelefone());
-      addDetail(detailsPanel, "Local (Endereço):", clienteDetalhes.getEndereco().getLocal());
-      addDetail(
-          detailsPanel,
-          "Número da Casa:",
-          String.valueOf(clienteDetalhes.getEndereco().getNumeroCasa()));
-      addDetail(detailsPanel, "CEP:", clienteDetalhes.getEndereco().getCep());
-      addDetail(detailsPanel, "Bairro:", clienteDetalhes.getEndereco().getBairro());
-      addDetail(detailsPanel, "Cidade:", clienteDetalhes.getEndereco().getCidade());
-      addDetail(detailsPanel, "Estado:", clienteDetalhes.getEndereco().getEstado());
+      Usuario usuario = clienteDetalhes.getUsuario();
+      Endereco endereco = clienteDetalhes.getEndereco();
+
+      if (usuario != null) {
+        addDetail(detailsPanel, "Nome do Cliente:", usuario.getNome());
+        addDetail(detailsPanel, "CPF do Cliente:", usuario.getCpf());
+        addDetail(detailsPanel, "Data de Nascimento:", usuario.getDataNascimento().toString());
+        addDetail(detailsPanel, "Telefone:", usuario.getTelefone());
+      }
+
+      if (endereco != null) {
+        addDetail(detailsPanel, "Local (Endereço):", endereco.getLocal());
+        addDetail(
+                detailsPanel,
+                "Número da Casa:",
+                String.valueOf(endereco.getNumeroCasa()));
+        addDetail(detailsPanel, "CEP:", endereco.getCep());
+        addDetail(detailsPanel, "Bairro:", endereco.getBairro());
+        addDetail(detailsPanel, "Cidade:", endereco.getCidade());
+        addDetail(detailsPanel, "Estado:", endereco.getEstado());
+      }
     } else {
       JLabel errorLabel = new JLabel("Cliente não encontrado.", SwingConstants.CENTER);
       errorLabel.setForeground(Color.RED);
@@ -73,15 +90,15 @@ public class ConsultaClienteView extends JFrame {
     footerPanel.setBackground(new Color(30, 30, 30));
 
     RoundedButton exitButton =
-        new RoundedButton("Voltar", new Color(109, 6, 6, 25), new Color(161, 61, 61));
+            new RoundedButton("Voltar", new Color(109, 6, 6, 25), new Color(161, 61, 61));
     exitButton.setForeground(new Color(161, 61, 61));
     exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     exitButton.setMaximumSize(exitButtonSize);
 
     exitButton.addActionListener(
-        e -> {
-          dispose();
-        });
+            e -> {
+              dispose();
+            });
 
     footerPanel.add(exitButton);
     add(footerPanel, BorderLayout.SOUTH);

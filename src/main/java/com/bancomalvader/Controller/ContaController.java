@@ -1,3 +1,14 @@
+/**
+ * Controlador responsável por gerenciar as operações relacionadas às contas no sistema Banco
+ * Malvader.
+ *
+ * <p>Este controlador fornece métodos para criar, atualizar, consultar e excluir contas bancárias,
+ * além de realizar operações como depósitos, saques e transferências.
+ *
+ * @author [Seu Nome]
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.Controller;
 
 import com.bancomalvader.DAO.*;

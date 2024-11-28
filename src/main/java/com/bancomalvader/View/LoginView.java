@@ -1,8 +1,18 @@
+/**
+ * Classe responsável pela interface gráfica de login do sistema Banco Malvader.
+ * <p>
+ * Permite a autenticação dos usuários, solicitando credenciais como nome de usuário e senha,
+ * e direciona para o menu principal após validação bem-sucedida.
+ * </p>
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.View;
 
 import com.bancomalvader.DAO.ClienteDAO;
 import com.bancomalvader.DAO.FuncionarioDAO;
-import com.bancomalvader.Model.Cliente;
 import com.bancomalvader.Model.Funcionario;
 import com.bancomalvader.Model.Usuario;
 import com.bancomalvader.Util.AdminValidation;

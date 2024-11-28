@@ -1,3 +1,14 @@
+/**
+ * Classe responsável pela interface gráfica para registro de novos usuários no sistema Banco
+ * Malvader.
+ *
+ * <p>Permite o cadastro de clientes e funcionários, solicitando informações como nome, CPF, senha e
+ * outros dados relevantes. Inclui validações para garantir a consistência dos dados inseridos.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.View;
 
 import com.bancomalvader.Controller.UsuarioController;

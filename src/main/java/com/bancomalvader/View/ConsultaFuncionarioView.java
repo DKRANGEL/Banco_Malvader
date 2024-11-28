@@ -1,3 +1,14 @@
+/**
+ * Classe responsável pela interface gráfica para consulta de informações de funcionários no sistema
+ * Banco Malvader.
+ *
+ * <p>Permite a busca e visualização de dados dos funcionários, como nome, cargo e permissões
+ * atribuídas.
+ *
+ * @author Dérick Rangel
+ * @version 1.0
+ * @since 2024-11-27
+ */
 package com.bancomalvader.View;
 
 import com.bancomalvader.Controller.FuncionarioController;
